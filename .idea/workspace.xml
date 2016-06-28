@@ -1,18 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="29b7c269-e01b-4df0-a6d6-d02530036fc6" name="Default" comment="first message for my tesis work&#10;&#10;in this moment work on swing UI, JMF and little bit javafx for message and play video">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Presentation/JWebCam4$MySnapshot.class" afterPath="$PROJECT_DIR$/target/classes/Presentation/JWebCam4$MySnapshot.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Presentation/JWebCam4$MyToolBarAction.class" afterPath="$PROJECT_DIR$/target/classes/Presentation/JWebCam4$MyToolBarAction.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Presentation/JWebCam4$MyVideoFormat.class" afterPath="$PROJECT_DIR$/target/classes/Presentation/JWebCam4$MyVideoFormat.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Presentation/JWebCam4.class" afterPath="$PROJECT_DIR$/target/classes/Presentation/JWebCam4.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Presentation/ShootingVideo.class" afterPath="$PROJECT_DIR$/target/classes/Presentation/ShootingVideo.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/testcam.mp4" afterPath="$PROJECT_DIR$/testcam.mp4" />
+    <list default="true" id="29b7c269-e01b-4df0-a6d6-d02530036fc6" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Application/ImageSevice.class" afterPath="$PROJECT_DIR$/target/classes/Application/ImageSevice.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Application/ImageSevice.java" afterPath="$PROJECT_DIR$/src/main/java/Application/ImageSevice.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Presentation/JWebCam4.java" afterPath="$PROJECT_DIR$/src/main/java/Presentation/JWebCam4.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Presentation/ShootingVideo.java" afterPath="$PROJECT_DIR$/src/main/java/Presentation/ShootingVideo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/log4j.xml" afterPath="$PROJECT_DIR$/target/classes/log4j.xml" />
     </list>
     <list id="04751ae2-5099-4aa1-ab62-f738cff4c55c" name="New changelist" comment="" />
     <list id="9966e619-16e7-4e87-b157-0f01b81b431f" name="Rejected commit: Default" comment="first message for my tesis work&#10;&#10;in this moment work on swing UI, JMF and little bit javafx for message and play video" />
@@ -927,7 +918,7 @@
       <option name="presentableId" value="Default" />
       <updated>1467022743433</updated>
       <workItem from="1467022748901" duration="10216000" />
-      <workItem from="1467104448460" duration="245000" />
+      <workItem from="1467104448460" duration="301000" />
     </task>
     <task id="LOCAL-00001" summary="first message for my tesis work&#10;&#10;in this moment work on swing UI, JMF and little bit javafx for message and play video">
       <created>1467052558268</created>
@@ -936,11 +927,18 @@
       <option name="project" value="LOCAL" />
       <updated>1467052558268</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="first message for my tesis work&#10;&#10;add ImageService method, update JWebCam4">
+      <created>1467104748264</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1467104748264</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10461000" />
+    <option name="totallyTimeSpent" value="10517000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -982,7 +980,8 @@
   <component name="VcsManagerConfiguration">
     <confirmMoveToFailedCommit value="1" />
     <MESSAGE value="first message for my tesis work&#10;&#10;in this moment work on swing UI, JMF and little bit javafx for message and play video" />
-    <option name="LAST_COMMIT_MESSAGE" value="first message for my tesis work&#10;&#10;in this moment work on swing UI, JMF and little bit javafx for message and play video" />
+    <MESSAGE value="first message for my tesis work&#10;&#10;add ImageService method, update JWebCam4" />
+    <option name="LAST_COMMIT_MESSAGE" value="first message for my tesis work&#10;&#10;add ImageService method, update JWebCam4" />
     <option name="PRESELECT_EXISTING_CHANGELIST" value="false" />
   </component>
   <component name="XDebuggerManager">
