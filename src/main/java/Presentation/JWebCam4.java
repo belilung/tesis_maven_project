@@ -329,17 +329,17 @@ public class JWebCam4 extends JFrame
 
             try {
                 playerClose();
-
+//
                 Vector deviceList = CaptureDeviceManager.getDeviceList(new YUVFormat()); //get all media devices
 
                 CaptureDeviceInfo device = webCamDeviceInfo; //in this computer the only capture device is in=built webcam stays at 0th position
                 Format[] formats = device.getFormats(); //get all formats
 
-                MediaLocator mlv = device.getLocator();
+//                MediaLocator mlv = device.getLocator();
 
-                Player pl = Manager.createRealizedPlayer(mlv);
-
-                pl.start();
+//                Player pl = Manager.createRealizedPlayer(mlv);
+//
+//                pl.start();
 
                 for (int x = 0; x < formats.length; x++) {
                     if (formats[x] != null && formats[x] instanceof VideoFormat) {
@@ -379,31 +379,31 @@ public class JWebCam4 extends JFrame
 
                 //settingup sink
                 DataSource outputDataSource=processor.getDataOutput();
-                MediaLocator destination=new MediaLocator("file:.\\testcam.mp4");
+                MediaLocator destination=new MediaLocator("file:.\\data\\testcam.mp4");
                 DataSink dataSink=Manager.createDataSink(outputDataSource, destination);
                 dataSink.open();
 
                 //start sink + processor
-                Thread.sleep(2000);
+//                Thread.sleep(2000);
                 dataSink.start();
                 processor.start();
-
+                LOG.info("proccessor and datasink start");
                 Thread.sleep(2000);
 
                 dataSink.close();
                 processor.stop();
                 processor.close();
 
-                LOG.info("proccessor and datasink stop");
+                LOG.info("proccessor and datasink close");
 
-                pl.stop();
-
-                LOG.info(pl);
-                pl.deallocate();
-                pl = null;
+//                pl.stop();
+//
+//                LOG.info(pl);
+//                pl.deallocate();
+//                pl = null;
 
                 initialise();
-
+//
 //                new Thread() {
 //                    @Override
 //                    public void run() {
@@ -422,7 +422,9 @@ public class JWebCam4 extends JFrame
 
 //                Application.launch(VideoPlayer.class);
 //                startUpTest.printSomething();
-                String exec = "C:\\ffmpeg-20160619-5f5a97d-win64-static\\bin\\ffmpeg -i C:\\Users\\Андрей\\IdeaProjects\\tesis\\testcam.mp4 -r 25 -f image2 images%05d.png ";
+                String exec =
+                        "C:\\ffmpeg-20160619-5f5a97d-win64-static\\bin\\ffmpeg -i " +
+                        "C:\\Users\\Андрей\\IdeaProjects\\tesis_maven_project\\data\\testcam.mp4 -r 25 -f image2 images%05d.png ";
                 Process process = Runtime.getRuntime().exec(exec);
 
                 BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -430,11 +432,13 @@ public class JWebCam4 extends JFrame
                 String line = "";
 
                 while((line = br.readLine()) != null){
-                    LOG.info("Line " + line);
+                    System.err.println("Line " + line);
                 }
-
+//
+//                ShootingVideo sv = new ShootingVideo(statusBar);
+//                sv.setVisible(true);
             } catch (Exception ex) {
-                LOG.info(ex);
+                System.err.println(ex);
 
             }
         }
