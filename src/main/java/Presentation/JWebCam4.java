@@ -1,5 +1,6 @@
 package Presentation;
 
+import Application.ImageSevice;
 import com.sun.image.codec.jpeg.JPEGCodec;
 import com.sun.image.codec.jpeg.JPEGEncodeParam;
 import com.sun.image.codec.jpeg.JPEGImageEncoder;
@@ -16,10 +17,7 @@ import javax.swing.border.EtchedBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 //import java.util.Objects;
 import java.util.Objects;
 import java.util.TimerTask;
@@ -40,6 +38,7 @@ public class JWebCam4 extends JFrame
     protected JPanel visualContainer = null;
     protected Component visualComponent = null;
     protected JToolBar toolbar = null;
+    protected MyToolBarAction fileButton = null;
     protected MyToolBarAction formatButton = null;
     protected MyToolBarAction captureButton = null;
     protected MyToolBarAction videoButton = null;
@@ -80,7 +79,7 @@ public class JWebCam4 extends JFrame
             LOG.info("Note : Cannot load look and feel settings");
         }
 
-        setSize(320, 260); // default size...
+        setSize(480, 320); // default size...
 
         addWindowListener(this);
         addComponentListener(this);
@@ -105,7 +104,6 @@ public class JWebCam4 extends JFrame
     class RemindTask extends TimerTask {
                       int EvtCnt = 0;
         public void run() {
-            LOG.info("in");
             EvtCnt++;
             if (writeFile > 0) {
                 toolkit.beep();
@@ -184,8 +182,12 @@ public class JWebCam4 extends JFrame
                         formatControl = (FormatControl) player.getControl("javax.media.control.FormatControl");
                         videoFormats = webCamDeviceInfo.getFormats();
 
+                        if(visualComponent != null) {
+                            visualComponent = null;
+                        }
                         visualComponent = player.getVisualComponent();
                         if (visualComponent != null) {
+
                             visualContainer.add(visualComponent, BorderLayout.CENTER);
 
                             myFormatList = new MyVideoFormat[videoFormats.length];
@@ -280,10 +282,12 @@ public class JWebCam4 extends JFrame
         // Note : If you supply the 16 x 16 bitmaps then you can replace
         // the commented line in the MyToolBarAction constructor
 
-        formatButton = new MyToolBarAction("Resolution", "BtnFormat.jpg");
-        captureButton = new MyToolBarAction("Capture", "BtnCapture.jpg");
-        videoButton = new MyToolBarAction("Video", "BtnCapture.jpg");
+        fileButton = new MyToolBarAction("Открыть файл", "BtnFormat.jpg");
+        formatButton = new MyToolBarAction("Разрешение", "BtnFormat.jpg");
+        captureButton = new MyToolBarAction("Фото", "BtnCapture.jpg");
+        videoButton = new MyToolBarAction("Видео", "BtnCapture.jpg");
 
+        toolbar.add(fileButton);
         toolbar.add(formatButton);
         toolbar.add(captureButton);
         toolbar.add(videoButton);
@@ -291,7 +295,7 @@ public class JWebCam4 extends JFrame
         getContentPane().add(toolbar, BorderLayout.NORTH);
     }
 
-    protected void toolbarHandler(MyToolBarAction actionBtn) {
+    protected void toolbarHandler(MyToolBarAction actionBtn) throws IOException {
         if (actionBtn == formatButton) {
             Object selected = JOptionPane.showInputDialog(this,
                     "Select Video format",
@@ -388,7 +392,7 @@ public class JWebCam4 extends JFrame
                 dataSink.start();
                 processor.start();
                 LOG.info("proccessor and datasink start");
-                Thread.sleep(2000);
+                Thread.sleep(10000);
 
                 dataSink.close();
                 processor.stop();
@@ -401,6 +405,9 @@ public class JWebCam4 extends JFrame
 //                LOG.info(pl);
 //                pl.deallocate();
 //                pl = null;
+
+                visualContainer = new JPanel();
+                visualContainer.setLayout(new BorderLayout());
 
                 initialise();
 //
@@ -422,9 +429,16 @@ public class JWebCam4 extends JFrame
 
 //                Application.launch(VideoPlayer.class);
 //                startUpTest.printSomething();
+
+                LOG.info("sequence start");
                 String exec =
                         "C:\\ffmpeg-20160619-5f5a97d-win64-static\\bin\\ffmpeg -i " +
-                        "C:\\Users\\Андрей\\IdeaProjects\\tesis_maven_project\\data\\testcam.mp4 -r 25 -f image2 images%05d.png ";
+                        "C:\\Users\\Андрей\\IdeaProjects\\tesis_maven_project\\data\\testcam.mp4 -r 25 -f image2 " +
+                        "C:\\Users\\Андрей\\IdeaProjects\\tesis_maven_project\\data\\images%05d.png ";
+
+
+                //C:\ffmpeg-20160619-5f5a97d-win64-static\bin\ffmpeg -i C:\\Users\\Андрей\\IdeaProjects\\tesis_maven_project\\data\\testcam.mp4 -r 25 -f image2 C:\Users\Андрей\IdeaProjects\tesis_maven_project\data\images%05d.png
+
                 Process process = Runtime.getRuntime().exec(exec);
 
                 BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -434,6 +448,9 @@ public class JWebCam4 extends JFrame
                 while((line = br.readLine()) != null){
                     System.err.println("Line " + line);
                 }
+
+
+                LOG.info("sequence end");
 //
 //                ShootingVideo sv = new ShootingVideo(statusBar);
 //                sv.setVisible(true);
@@ -441,6 +458,42 @@ public class JWebCam4 extends JFrame
                 System.err.println(ex);
 
             }
+        } else if((actionBtn == fileButton)) {
+            JFileChooser fc = new JFileChooser();
+            int ret = fc.showDialog(null, "Открыть файл");
+
+            LOG.info("Choose file...");
+
+            if (ret == JFileChooser.APPROVE_OPTION) {
+                String filename = fc.getSelectedFile().getPath();
+                String filedir= fc.getSelectedFile().getParent();
+
+                LOG.info("sequence start");
+                String exec =
+                        "C:\\ffmpeg-20160619-5f5a97d-win64-static\\bin\\ffmpeg -i " + filename +
+                                " -r 25 -f image2 " + filedir +
+                                "\\images%05d.png ";
+
+                LOG.info(exec);
+                LOG.info(filename);
+
+                //C:\ffmpeg-20160619-5f5a97d-win64-static\bin\ffmpeg -i C:\\Users\\Андрей\\IdeaProjects\\tesis_maven_project\\data\\testcam.mp4 -r 25 -f image2 C:\Users\Андрей\IdeaProjects\tesis_maven_project\data\images%05d.png
+
+                Process process = Runtime.getRuntime().exec(exec);
+
+                BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
+
+                String line = "";
+
+                while((line = br.readLine()) != null){
+                    System.err.println("Line " + line);
+                }
+
+                ImageSevice is = new ImageSevice(filedir);
+
+                LOG.info("sequence end");
+            }
+            LOG.info("File choosed.");
         }
     }
 
@@ -662,7 +715,11 @@ public class JWebCam4 extends JFrame
         }
 
         public void actionPerformed(ActionEvent event) {
-            toolbarHandler(this);
+            try {
+                toolbarHandler(this);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -746,7 +803,10 @@ public class JWebCam4 extends JFrame
         try {
             LOG.info(filename);
             filename += ".jpg";
-            out = new FileOutputStream(filename);
+            out = new FileOutputStream("data_image\\" + filename);
+
+            ImageSevice is = new ImageSevice("C:\\Users\\Андрей\\IdeaProjects\\tesis_maven_project\\data_image\\" + filename);
+
             JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
             JPEGEncodeParam param = encoder.getDefaultJPEGEncodeParam(bi);
             param.setQuality(1.0f, false);   // 100% high quality setting, no compression

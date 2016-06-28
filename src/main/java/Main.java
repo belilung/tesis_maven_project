@@ -52,7 +52,7 @@ public class Main extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception {
         try {
-            JWebCam4 myWebCam = new JWebCam4("title");
+            JWebCam4 myWebCam = new JWebCam4("Automation camera snapshot/video");
             myWebCam.setVisible(true);
 //            JWebCam4 vp = new JWebCam4();
 //            vp.start(primaryStage);
